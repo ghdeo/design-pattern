@@ -14,7 +14,7 @@
 이를 통해 전역적으로 사용되는 자원에 대한 중복 생성을 방지하고, 객체 간의 정보 공유를 쉽게 구현할 수 있다.
 
 ## 다이어그램
-<img src="./src/resources/singleton-simple-diagram.png">
+<img src="source/resources/singleton-simple-diagram.png">
 
 ## 코드
 ```java
@@ -46,7 +46,7 @@ public class Singleton {
 ## Spring에서의 적용
 ### 예시 상황
 
-<img src="./src/resources/spring-singleton-diagram.png">
+<img src="source/resources/spring-singleton-diagram.png">
 
 - 회원 서비스 역할은 MemberService 인터페이스와 MemberServiceImpl을 통해 구현된다.
 - 회원 서비스는 멤버(회원)를 MemberRepository를 이용해 저장하고 찾는 기능을 수행한다.
@@ -79,7 +79,7 @@ public class SingletonTest {
 ```
 
 ### 결과
-<img src="src/resources/pure-container-test.png">
+<img src="source/resources/pure-container-test.png">
 
 조회한 빈의 참조 주소가 다른 것을 알 수있다. 즉 클라이언트가 매 서비스를 호출 할때마다 불필요하게 인스턴스가 생성된다는 의미다.
 그렇기에 싱글톤 패턴을 사용해 객체를 재사용하는 식으로 메모리 낭비를 막아야 한다.
@@ -124,7 +124,7 @@ public class SingletonService {
 ```
 
 ### 결과
-<img src="./src/resources/singleton-service-test.png">
+<img src="source/resources/singleton-service-test.png">
 
 ---
 ## 싱글톤 패턴의 장단점
@@ -183,4 +183,4 @@ void springContainer() {
 ```
 
 ### 결과
-<img src="./src/resources/spring-singleton-container-test.png">
+<img src="source/resources/spring-singleton-container-test.png">
