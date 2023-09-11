@@ -16,5 +16,13 @@ public class Main {
 
         // 생성된 게시글 객체를 출력합니다.
         System.out.println(build);
+
+
+        ArticleLombok articleLombok = ArticleLombok.builder()
+                .id("bb")
+                .title("title2")
+                .content("content2")
+                .articleType(ArticleType.FREE)
+                .build();
     }
 }

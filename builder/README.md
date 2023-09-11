@@ -138,6 +138,29 @@ public class Main {
 
 <img src="./source/resources/simple-builder-result.png">
 
+## Lombok의 @Builder를 이용한 심플 빌더 패턴
+```java
+@AllArgsConstructor
+@Builder
+public class ArticleLombok {
+    private final String id;
+    private final String title;
+    private final String content;
+    private final ArticleType articleType;
+}
+
+```
+Lombok의 aonnotation을 이용하면 쉽게 심플 빌더패턴을 구현할 수 있다.
+```java
+ArticleLombok articleLombok = ArticleLombok.builder()
+        .id("bb")
+        .title("title2")
+        .content("content2")
+        .articleType(ArticleType.FREE)
+        .build();
+```
+
+
 ## Director Builder Pattern (GOF)
 GOF에서 정의하고 있는 디자인 패턴은 복잡한 객체의 생성 알고리즘과 조립 방법을 분리하여 빌드 공정을 구축하는것이 목적이다. 빌더를 받아 조립 방법을 정의한 클래스를 Director라고 부른다.
 
@@ -378,7 +401,7 @@ public class Main {
 
 ### 결과
 <img src="./source/resources/gof-builder-result.png">
----
+
 위에서 작성한 예제를 기준으로 Main 클래스는 Builder 클래스의 메소드를 모르고 호출하지도 않는다.
 
 단지, Cook 클래스(:Director클래스)의 build() 메소드만을 호출한다. 그럼 Cook 클래스 안에서 로직이 수행되고 피자가 완성된다.
@@ -387,7 +410,7 @@ public class Main {
 
 이처럼 Cook 클래스가 자신이 이용하고 있는 Builder 클래스의 하위 클래스를 모르기 때문에 교체가 가능하다.
 
-
+---
 ## 빌더 패턴의 장단점
 
 #### 장점
