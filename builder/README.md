@@ -5,7 +5,41 @@
 알고보니 lombok의 빌더 패턴은 심플 빌더 패턴으로 이펙티브 자바 스타일의 빌더 패턴을 더 쉽게 사용할 수 있도록 고안된 것이라고 한다.
 
 하지만 이 두 방식 모두 복잡한 객체의 생성과정과 표현 방법을 분리하여 다양한 구성의 인스턴스를 만드는 것을 목적으로 한 데에는 동일하다.
-지금부터 두가지 방식의 빌더패턴을 각각 구현하고 패턴들의 장단점에 대해 알아보자 
+지금부터 빌더 패턴을 적용하기 전 코드를 보고 두가지 방식의 빌더패턴을 적용한 코드를 확인해보자. 
+
+## Before
+```java
+public class Article {
+    // final 키워드로 필드들을 불변 객체로 만든다.
+    private String id;
+    private String title;
+    private String content;
+    private ArticleType articleType;
+    
+    public Article(String id, String title, String content, ArticleType articleType) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.articleType = articleType;
+    }
+
+    public Article(String id, String title, String content) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+    }
+    
+    public Article(String id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+  
+    ...
+}
+```
+위와 같이 생성자를 오버로딩해 다양한 매개변수를 입력받는 형식으로 인스턴스를 생성한다.
+하지만 이러한 방식은 클래스 인스턴스 필드들이 많으면 많을 수록 생성자에 들어갈 인자의 수가 늘어나 몇번째 인자가 어떤 필드였는지 햇갈릴 경우가 생기게 된다.
+무엇보다 타입이 다양할 수록 생성자 메서드 수가 기하급수적으로 늘어나 가독성이나 유지보수 측면에서 좋지 않다.
 
 ## Effective Java Builder Pattern(심플 빌더 패턴)
 보통 개발자들이 빌더 패턴을 말할 때 정의되는 것이 이펙티브 자바에서 소개한 빌더 패턴이다. 
