@@ -13,10 +13,14 @@
 
 이를 통해 전역적으로 사용되는 자원에 대한 중복 생성을 방지하고, 객체 간의 정보 공유를 쉽게 구현할 수 있다.
 
-## 다이어그램
+### 다이어그램
 <img src="source/resources/singleton-simple-diagram.png">
 
-## 코드
+- 싱글톤 클래스는 정적 메서드 getInstance를 선언한다. 
+- 이 메서드는 자체 클래스의 같은 인스턴스를 반환합니다.
+- 싱글톤의 생성자는 private으로 선언한다. 
+- getInstance 메서드를 호출함으로써 싱글톤 객체를 가져오고, 이는 객체를 받아올 수있는 유일한 방법이다.
+### 구현 코드
 ```java
 public class Singleton {
 
@@ -34,7 +38,7 @@ public class Singleton {
 }
 ```
 
-## 구현 방법
+### 구현 방법
 
 싱글톤 패턴을 구현하기 위해 다음과 같은 요소를 고려해야 한다.
 
@@ -47,9 +51,10 @@ public class Singleton {
 ### 예시 상황
 
 <img src="source/resources/spring-singleton-diagram.png">
+스프링 환경에서 구현된 회원을 관리하는 서비스 다이어그램이다.
 
 - 회원 서비스 역할은 MemberService 인터페이스와 MemberServiceImpl을 통해 구현된다.
-- 회원 서비스는 멤버(회원)를 MemberRepository를 이용해 저장하고 찾는 기능을 수행한다.
+- 회원 서비스는 Member(회원)를 MemberRepository를 이용해 저장하고 찾는 기능을 수행한다.
 - 회원 저장소 역할은 MemberRepository 인터페이스와 MemoryMemberRepository를 통해 구현된다.
 - MemoryMemberRepository는 HashMap을 이용해 메모리에 회원들을 저장한다.
 
@@ -58,7 +63,7 @@ public class Singleton {
 
 게다가 해당 빈들은 굳이 사용자마자 다른 인자값을 가지는 인스턴스가 될 일도 없다. 모두 동일한 빈 사용을위해 서비스 호출때마다 새로운 빈들이 생성, 삭제가 되어야 한다는 것이다.
 
-### 확인코드
+### 문제점 확인코드
 
 ```java
 public class SingletonTest {
@@ -104,11 +109,11 @@ public class SingletonService {
     }
 }
 ```
-- 기본 생성자를 pricate으로 선언하여 외부에서 해당 서비스를 생성할 수 없도록 막았다.
+- 기본 생성자를 private으로 선언하여 외부에서 해당 서비스를 생성할 수 없도록 막았다.
 - 최초 호출시 한번만 생성되고 이후에는 새로운 인스턴스를 생성할 수 없다.
 - 해당 서비스가 필요하면 getInstance() 메서드를 통해 해당 서비스를 사용한다.
 
-### 확인코드
+### 확인 코드
 ```java
     @Test
     @DisplayName("싱글톤 패턴을 적용한 객체 사용")
@@ -125,12 +130,15 @@ public class SingletonService {
 
 ### 결과
 <img src="source/resources/singleton-service-test.png">
+싱글톤 서비스를 이용하는 인스턴스의 참조가 일치하는 것을 알 수있다. 
+이를 통해 서비스를 호출 할때마다 불필요하게 인스턴스가 생성되는 것을 막아 메모리 낭비를 막을 수 있다.
 
 ---
+
 ## 싱글톤 패턴의 장단점
 
 #### 장점
-- 메모리와 성능을 효율적으로 관리할 수 있다. 
+- 메모리와 성능을 효율적으로 관리할 수 있다.
 - 동일한 객체를 여러 번 생성하지 않으므로 자원 소모를 줄일 수 있다.
 - 전역 상태나 자원에 대한 접근을 효율적으로 관리할 수 있다.
 - 코드 중복을 방지하고 객체 간의 일관성을 유지할 수 있다.
@@ -142,17 +150,17 @@ public class SingletonService {
 - DIP를 위반하면 자연스럽게 OCP를 위반할 가능성도 높아진다.
 - 테스트가 어려워진다.
   ⇒ 인스턴스를 미리 다 받아서 설정이 끝난 상태이기에 유연한 테스트가 힘들다.
-  
+
 - 내부 속성을 변경하거나 초기화가 어렵다.
 - private생성자로 자식 클래스를 만들기 어렵다.
 - 유연성이 떨어진다.
 - 안티패턴으로 불리기도 한다.
 
-하지만, 스프링 컨테이너에서는 싱글톤의 이른 단점을 모두 제거하고 장점만 가지는 싱글톤을 사용한다.
+
 
 ---
 ## 싱글톤 컨테이너
-
+그러면 서비스를 개발 할때마다 싱글톤 패턴을 적용해서 구현해야할까?
 
 스프링 컨테이너는 싱글톤패턴의 많은 단점들을 해결하면서 객체 인스턴스를 싱글톤으로 관리한다.
 
@@ -184,3 +192,4 @@ void springContainer() {
 
 ### 결과
 <img src="source/resources/spring-singleton-container-test.png">
+빈으로 등록된 MemberService 인스턴스가 빈으로 등록되면 싱글톤으로 관리 되는 것을 확인 할 수 있다.
