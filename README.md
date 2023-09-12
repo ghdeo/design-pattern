@@ -11,7 +11,7 @@
 - 생셩패턴 : 기존 코드의 재사용과 유연성을 증가시키는 객체 생성 메커니즘을 제공한다.
   - 팩토리 메서드
   - 추상팩토리
-  - <a herf="https://github.com/ghdeo/design-pattern/tree/1194af81c68f27672d4cb132f721387fbf71bb17/builder">빌더</a>
+  - <a href="https://github.com/ghdeo/design-pattern/tree/1194af81c68f27672d4cb132f721387fbf71bb17/builder">빌더</a>
   - <a href="https://github.com/ghdeo/design-pattern/tree/1194af81c68f27672d4cb132f721387fbf71bb17/singleton">싱글톤</a>
   - 프로토타입
 - 구조패턴 : 구조를 유연하고 효율적으로 유지하면서 객체와 클래스를 더 큰 구조로 조합하는 방법을 제공한다.
