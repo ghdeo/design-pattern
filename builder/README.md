@@ -41,6 +41,8 @@ public class Article {
 하지만 이러한 방식은 클래스 인스턴스 필드들이 많으면 많을 수록 생성자에 들어갈 인자의 수가 늘어나 몇번째 인자가 어떤 필드였는지 햇갈릴 경우가 생기게 된다.
 무엇보다 타입이 다양할 수록 생성자 메서드 수가 기하급수적으로 늘어나 가독성이나 유지보수 측면에서 좋지 않다.
 
+---
+
 ## Effective Java Builder Pattern(심플 빌더 패턴)
 보통 개발자들이 빌더 패턴을 말할 때 정의되는 것이 이펙티브 자바에서 소개한 빌더 패턴이다. 
 GOF 빌더 패턴과 구분하기 위해 심플 빌더 패턴(Simple Builder Pattern) 이라고도 불린다.
@@ -52,12 +54,12 @@ GOF 빌더 패턴과 구분하기 위해 심플 빌더 패턴(Simple Builder Pat
 
 - 게시글을 의미하는 Article 엔티티이다.
 - 게시글은 식별자(id)와 제목(title), 내용(content), 게시글종류(articleType)을 가진다. 
-- 생성자는 private으로 선언되어 빌더를 통해서만 인스턴스가 생성되게 구현할 예정이다.
+- 생성자는 private으로 선언되어 빌더를 통해서만 인스턴스가 생성되게 구현한다.
 - 내부 Builder 클래스를 static 으로 선언해주어야 한다. 
   - 만일 일반 내부 클래스로 구성한다면 내부 클래스를 생성하기도 전에 외부 클래스를 인스턴스화 해야 한다. 
   빌더가 최종적으로 생성할 클래스의 인스턴스를 먼저 생성해야 한다면 모순이 생기기 때문이다.
 
-### 코드
+### 구현 코드
 ```java
 /**
  * 이 클래스는 게시글(Article) 정보를 나타내는 클래스입니다. 불변 객체로 설계되었으며, 빌더 패턴을 사용하여 객체를 생성합니다.
@@ -172,7 +174,13 @@ public class Main {
 
 <img src="./source/resources/simple-builder-result.png">
 
+Article의 Builder를 사용해 Article 인스턴스인 build가 생성된 것을 알 수 있다. 
+
+---
+
 ## Lombok의 @Builder를 이용한 심플 빌더 패턴
+심플 빌더패턴을 Lombok의 Annotation을 이용해 쉽게 구현할 수 있다.
+
 ```java
 @AllArgsConstructor
 @Builder
@@ -184,7 +192,7 @@ public class ArticleLombok {
 }
 
 ```
-Lombok의 aonnotation을 이용하면 쉽게 심플 빌더패턴을 구현할 수 있다.
+구현하고자 하는 엔티티에 생성자와 @Builder annotation을 붙여주면 알아서 Builder 를 생성해준다.
 ```java
 ArticleLombok articleLombok = ArticleLombok.builder()
         .id("bb")
@@ -193,7 +201,9 @@ ArticleLombok articleLombok = ArticleLombok.builder()
         .articleType(ArticleType.FREE)
         .build();
 ```
+Article의 Builder를 직접 구현한 것과 동일한 방식으로 사용이 가능하다.
 
+---
 
 ## Director Builder Pattern (GOF)
 GOF에서 정의하고 있는 디자인 패턴은 복잡한 객체의 생성 알고리즘과 조립 방법을 분리하여 빌드 공정을 구축하는것이 목적이다. 빌더를 받아 조립 방법을 정의한 클래스를 Director라고 부른다.
@@ -207,7 +217,7 @@ GOF에서 정의하고 있는 디자인 패턴은 복잡한 객체의 생성 알
 - Cook : Builder에서 제공하는 메서드들을 사용해 정해진 순서대로 Product 생성하는 프로세스를 정의 (Director 클래스)
 - Pizza : Director가 Builder로 만들어낸 결과물.
 
-### 코드
+### 구현 코드
 ```java
 
 /**
